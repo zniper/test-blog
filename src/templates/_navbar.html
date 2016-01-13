@@ -1,2 +1,4 @@
 <li {% if active_link == "home" %}class="active"{% endif %}><a href="{% url 'home' %}">Home</a></li>
-<li {% if active_link == "about" %}class="active"{% endif %}><a href="{% url 'about' %}">About</a></li>
+{% if user.is_authenticated %}
+<li {% if active_link == "new-entry" %}class="active"{% endif %}><a href="{% url 'content:post-entry' %}">Post Entry</a></li>
+{% endif %}

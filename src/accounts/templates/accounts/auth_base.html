@@ -2,17 +2,11 @@
 
 {% load crispy_forms_tags %}
 
-{% block navbar %}
-{% endblock %}
-
-{% block container %}
-<div class="container form-box">
+{% block content %}
   <div class="text-center">
     <h2>{% block form_heading %}{% endblock %}</h2>
   </div>
   {% block form %}
   {% endblock %}
-</div>
-
-{% endblock container %}
+{% endblock content %}
 

@@ -3,11 +3,10 @@ from __future__ import unicode_literals
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, HTML, Field
+from crispy_forms.layout import Layout, Submit, Field
 
 User = get_user_model()
 
