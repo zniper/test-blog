@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 
 class Category(models.Model):
@@ -14,6 +15,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = _('Categories')
+        ordering = ['name']
 
 
 class Entry(models.Model):
@@ -26,5 +28,9 @@ class Entry(models.Model):
     def __unicode__(self):
         return _('{0} (by {1})').format(self.title, self.editor.username)
 
+    def get_absolute_url(self):
+        return reverse('content:view-entry', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name_plural = _('Entries')
+        ordering = ['-pk']

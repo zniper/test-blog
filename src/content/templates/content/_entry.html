@@ -1,0 +1,7 @@
+<div class="entry">
+  <h4><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h4>
+  <div class="entry-info clearfix">
+    <span>By {{ entry.editor.get_full_name|default:entry.editor.username }}</span>
+    &bullet;&nbsp;<span>{{ entry.categories.all|join:', ' }}</span>
+  </div>
+</div>

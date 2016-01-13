@@ -15,46 +15,18 @@
 {% endblock %}
 
 {% block splash %}
-  <div class="jumbotron jumbotron-carousel corporate-jumbo">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-8">
-          <h1>{% include "_brandname.html" %}</h1>
-          <p>This is a standard blog engine for testing purpose.</p>
-          <a class="btn btn-primary" href="{% url 'accounts:signup' %}" role="button">Sign up for Free!</a>
-        </div>
-        <div class="col-md-4 col-sm-4">
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock splash %}
 
-{% block container %}
-<!-- Benefits of the Django application -->
-<a name="about"></a>
+{% block content %}
+  <h1>Blog Index</h1>
+  <hr />
+  {% for entry in object_list %}
+  {% include "content/_entry.html" with entry=entry %}
+  {% endfor %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4">
-      <h2>Heading</h2>
-      <p>{% lorem 1 %}</p>
-      <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-    </div>
-    <div class="col-lg-4">
-      <h2>Heading</h2>
-      <p>{% lorem 1 %}</p>
-      <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-    </div>
-    <div class="col-lg-4">
-      <h2>Heading</h2>
-      <p>{% lorem 1 %}</p>
-      <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-    </div>
-  </div>
-</div>
+  {% include "_pagination.html" with page_obj=page_obj paginator=paginator %}
 
-{% endblock container %}
+{% endblock content %}
 
 {% block scripts %}
 <script src="{% static 'site/js/site.js' %}"></script>
