@@ -1,0 +1,17 @@
+[
+{
+    "model": "content.entry",
+    "pk": 1,
+    "fields": {
+        "editor": [
+            "admin"
+        ],
+        "title": "The first entry ever!",
+        "text": "Hello folks, let's blogging!",
+        "categories": [
+            2,
+            5
+        ]
+    }
+}
+]
