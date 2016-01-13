@@ -23,9 +23,7 @@
   {% for entry in object_list %}
   {% include "content/_entry.html" with entry=entry %}
   {% endfor %}
-
   {% include "_pagination.html" with page_obj=page_obj paginator=paginator %}
-
 {% endblock content %}
 
 {% block scripts %}

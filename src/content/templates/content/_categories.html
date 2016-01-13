@@ -1,0 +1,5 @@
+<span class="categories">
+  {% for cat in categories %}
+  <a href="{% url 'content:entry-list' %}?by=categories&id={{ cat.pk }}">{{ cat.name }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+  {% endfor %}
+</span>

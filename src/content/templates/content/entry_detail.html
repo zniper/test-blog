@@ -4,7 +4,7 @@
 
 {% block content %}
   <h1>{{ object.title }}</h1>
-  <p>Published by: {{ object.editor.get_full_name|default:object.editor.username }}</p>
-  <p>Categorized under: {{ object.categories.all|join:', ' }}</p>
+  <p>Published by: <a href="{% url 'content:entry-list' %}?by=editor&id={{ object.editor.pk }}">{{ object.editor.get_full_name|default:object.editor.username }}</a></p>
+  <p>Categorized under: {% include "content/_categories.html" with categories=object.categories.all %}</p>
   <div class="entry-content">{{ object.text }}</div>
 {% endblock content %}
