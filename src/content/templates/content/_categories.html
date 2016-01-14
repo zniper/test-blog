@@ -1,5 +1,6 @@
 <span class="categories">
+  <span class="glyphicon glyphicon-folder-open"></span>
   {% for cat in categories %}
-  <a href="{% url 'content:entry-list' %}?by=categories&id={{ cat.pk }}">{{ cat.name }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+  <a href="{% url 'content:entry_list' %}?by=categories&id={{ cat.pk }}">{{ cat.name }}</a>{% if not forloop.last %},&nbsp;{% endif %}
   {% endfor %}
 </span>

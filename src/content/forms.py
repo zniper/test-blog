@@ -24,7 +24,7 @@ class EntryForm(forms.ModelForm):
             Field('categories'),
             Field('text', placeholder=_("Enter entry content")),
             Submit('button_save', _('Save'),
-                   css_class="btn btn-lg btn-primary btn-block"),
+                   css_class="btn btn-primary"),
             )
 
     class Meta:

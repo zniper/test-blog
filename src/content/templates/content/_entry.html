@@ -1,7 +1,4 @@
 <div class="entry">
-  <h4><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h4>
-  <div class="entry-info clearfix">
-    <span>By <a href="{% url 'content:entry-list' %}?by=editor&id={{ entry.editor.pk }}">{{ entry.editor.get_full_name|default:entry.editor.username }}</a></span>&bullet;&nbsp;
-    {% include "content/_categories.html" with categories=entry.categories.all %}
-  </div>
+  <h4 class="title"><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h4>
+  {% include "content/_byline.html" with entry=entry %}
 </div>

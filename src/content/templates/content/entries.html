@@ -2,10 +2,10 @@
 
 {% load staticfiles %}
 
-{% block title %}{{ block.super }}Entry List{% endblock %}
+{% block title %}{{ block.super }}Entries of {{ target_name }}{% endblock %}
 
 {% block content %}
-  <h1>Blog Index</h1>
+  <h1>Entries of {{ target_name }}</h1>
   <hr />
   {% for entry in object_list %}
   {% include "content/_entry.html" with entry=entry %}

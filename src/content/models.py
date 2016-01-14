@@ -21,15 +21,19 @@ class Category(models.Model):
 class Entry(models.Model):
     # A blog post with basic information
     editor = models.ForeignKey('auth.User', related_name='entries')
-    title = models.CharField(_('Entry Title'), max_length=256)
-    text = models.TextField(_('Content'))
-    categories = models.ManyToManyField(Category)
+    title = models.CharField(
+        _('Entry Title'), max_length=256,
+        help_text=_('Title of the entry (256 characters max).'))
+    text = models.TextField(
+        _('Content'), help_text=_('Main content of the entry.'))
+    categories = models.ManyToManyField(
+        Category, help_text=_('Select one or more categories for this entry.'))
 
     def __unicode__(self):
         return _('{0} (by {1})').format(self.title, self.editor.username)
 
     def get_absolute_url(self):
-        return reverse('content:view-entry', kwargs={'pk': self.pk})
+        return reverse('content:view_entry', kwargs={'pk': self.pk})
 
     @property
     def category_names(self):

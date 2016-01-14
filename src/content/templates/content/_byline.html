@@ -1,0 +1,12 @@
+<div class="entry-info clearfix">
+  <span class="editor">
+    <span class="glyphicon glyphicon-user"></span>
+    <a href="{% url 'content:entry_list' %}?by=editor&id={{ entry.editor.pk }}">{{ entry.editor.get_full_name|default:entry.editor.username }}</a>
+  </span>
+  <span class="categories">
+    <span class="glyphicon glyphicon-folder-open"></span>
+    {% for cat in entry.categories.all %}
+    <a href="{% url 'content:entry_list' %}?by=categories&id={{ cat.pk }}">{{ cat.name }}</a>{% if not forloop.last %},&nbsp;{% endif %}
+    {% endfor %}
+  </span>
+</div>

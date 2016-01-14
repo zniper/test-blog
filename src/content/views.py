@@ -3,11 +3,23 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages import success
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
+from django.db.models import ObjectDoesNotExist
 
+from logging import getLogger
 from haystack.query import SearchQuerySet
 
-from .models import Entry
+from .models import Entry, Category
 from .forms import EntryForm
+
+User = get_user_model()
+
+MODEL_MAPS = {
+    'categories': Category,
+    'editor': User
+}
+
+logger = getLogger(__name__)
 
 
 class PostEntryView(LoginRequiredMixin, generic.CreateView):
@@ -26,7 +38,7 @@ class PostEntryView(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self):
         success(self.request,
                 _('Congratulations! New entry has been published.'))
-        return reverse('content:view-entry', kwargs={'pk': self.object.pk})
+        return reverse('content:view_entry', kwargs={'pk': self.object.pk})
 
 
 class SingleEntryView(generic.DetailView):
@@ -42,6 +54,7 @@ class EntryListView(generic.ListView):
     template_name = "content/entries.html"
     model = Entry
     paginate_by = 3
+    target = None
 
     def get_queryset(self):
         """Additionally filter the result by given field"""
@@ -50,7 +63,19 @@ class EntryListView(generic.ListView):
         target_id = self.request.GET.get('id')
         if filter_by and target_id:
             queryset = queryset.filter(**{filter_by: target_id})
+        # Get the target object
+        try:
+            self.target = MODEL_MAPS[filter_by].objects.get(pk=target_id)
+        except ObjectDoesNotExist:
+            logger.exception('Cannot filter by [{0}, {1}]'.format(
+                filter_by, target_id))
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(EntryListView, self).get_context_data(**kwargs)
+        context['target_name'] = getattr(self.target, 'username', None) or \
+            getattr(self.target, 'name', None) or ''
+        return context
 
 
 class SearchResultView(generic.ListView):

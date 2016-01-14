@@ -24,7 +24,7 @@ class LoginForm(AuthenticationForm):
             Field('password', placeholder="Enter Password"),
             Field('remember_me'),
             Submit('sign_in', 'Log in',
-                   css_class="btn btn-lg btn-primary btn-block"),
+                   css_class="btn btn-primary"),
             )
 
 
@@ -88,5 +88,5 @@ class SignupForm(forms.ModelForm):
             Field('username', placeholder="Enter Username"),
             Field('password1', placeholder="Enter Password"),
             Field('password2', placeholder="Re-enter Password"),
-            Submit('sign_up', 'Sign up', css_class="btn-warning"),
+            Submit('sign_up', 'Sign up', css_class="btn btn-primary"),
             )

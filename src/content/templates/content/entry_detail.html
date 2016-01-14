@@ -3,8 +3,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <h1>{{ object.title }}</h1>
-  <p>Published by: <a href="{% url 'content:entry-list' %}?by=editor&id={{ object.editor.pk }}">{{ object.editor.get_full_name|default:object.editor.username }}</a></p>
-  <p>Categorized under: {% include "content/_categories.html" with categories=object.categories.all %}</p>
-  <div class="entry-content">{{ object.text }}</div>
+  <div class="entry details">
+    <h1 class="title">{{ object.title }}</h1>
+    {% include "content/_byline.html" with entry=entry %}
+    <div class="entry-content">{{ object.text }}</div>
+  </div>
 {% endblock content %}

@@ -56,9 +56,16 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% block navbar-right %}
+              <li class="search-box">
+                <form action="{% url 'content:blog_search' %}" method="GET">
+                  {% csrf_token %}    
+                  <input type="text" name="q" id="id-query" value="" placeholder="Enter keywords..."/>
+                  <button type="submit">Search</button>
+                </form>
+              </li>
               {% if user.is_authenticated %}
                 {% if user.is_staff %}
-                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                <li><a href="{% url 'admin:index' %}">Manage</a></li>
                 {% endif %}
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle profile-menu" data-toggle="dropdown">
@@ -69,6 +76,9 @@
                     <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
                   </ul>
                 </li>
+              {% else %}
+                <li><a class="" href="{% url 'accounts:login' %}" role="button">Log in</a></li>
+                <li><a class="" href="{% url 'accounts:signup' %}" role="button">Sign up</a></li>
               {% endif %}
             {% endblock %}
           </ul>
@@ -78,39 +88,34 @@
     </div>
     {% endblock navbar %}
 
-    {% block messages %}
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">  <!-- singular -->
-            <a class="close" data-dismiss="alert">×</a>
-            {{ message|safe }}
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endblock %}
-
     {% block splash %}
     {% endblock splash %}
     
     {% block container %}
     <div class="container">
+      {% block messages %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">  <!-- singular -->
+              <a class="close" data-dismiss="alert">×</a>
+              {{ message|safe }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endblock %}
       {% block content %}{% endblock content %}
     </div><!-- /.container -->
     {% endblock container %}
 
     <!-- Site footer -->
     {% block footer %}
-      <!-- Some social button for contact will do -->
-      <a name="contact"></a>
-      <div class="container">
-        <div class="footer">
-          <div class="row">
-            <div class="col-lg-6">
-                <p>&copy; Ha Pham {% now 'Y' %}</p>
-            </div>
-          </div>
+    <footer class="">
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="right">&copy; Ha Pham {% now 'Y' %}</p>
         </div>
       </div>
+    </footer>
     {% endblock %}
 
     <!-- Bootstrap core JavaScript
