@@ -1,24 +1,23 @@
 
 
-# test-blog
+# Test Blog
 
-test-blog is a standard blog engine. It is built with [Python][0] using the [Django Web Framework][1].
+test-blog is a standard blog engine. It is built with Python using the Django Web Framework.
 
-This project has the following basic apps:
+This project has the following basic features:
 
-* User registration 
-* Post blog entry
+* User registration and authentication 
+* Post and edit blog entry
+* Browse entries with filters (editor or categories)
+* Entry list with pagination
 * Full-text searching
 
 ## Installation
 
-### Quick start
+Clone the repository:
 
-To set up a development environment quickly, first install Python 3. It
-comes with virtualenv built-in. So create a virtual env by:
-
-    1. `$ python3 -m venv blog`
-    2. `$ . blog/bin/activate`
+    git clone https://github.com/zniper/test-blog.git myblog
+    cd myblog
 
 Install all dependencies:
 
@@ -27,10 +26,15 @@ Install all dependencies:
 Run migrations:
 
     python manage.py migrate
+    
+Create super user if needed:
 
-### Detailed instructions
+    python manage.py createsuperuser
 
-Take a look at the docs for more information.
+Run the django server:
 
-[0]: https://www.python.org/
-[1]: https://www.djangoproject.com/
+    python manage.py runserver
+    
+Now, you can browse the site at the address:
+
+    http://localhost:8000/
