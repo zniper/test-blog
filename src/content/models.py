@@ -27,7 +27,8 @@ class Entry(models.Model):
     text = models.TextField(
         _('Content'), help_text=_('Main content of the entry.'))
     categories = models.ManyToManyField(
-        Category, help_text=_('Select one or more categories for this entry.'))
+        Category, help_text=_('Select one or more categories for this entry.'),
+        blank=True)
 
     def __unicode__(self):
         return _('{0} (by {1})').format(self.title, self.editor.username)
