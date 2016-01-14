@@ -58,7 +58,6 @@
             {% block navbar-right %}
               <li class="search-box">
                 <form action="{% url 'content:blog_search' %}" method="GET">
-                  {% csrf_token %}    
                   <input type="text" name="q" id="id-query" value="" placeholder="Enter keywords..."/>
                   <button type="submit">Search</button>
                 </form>
