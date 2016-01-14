@@ -31,6 +31,10 @@ class Entry(models.Model):
     def get_absolute_url(self):
         return reverse('content:view-entry', kwargs={'pk': self.pk})
 
+    @property
+    def category_names(self):
+        return ', '.join(self.categories.values_list('name', flat=True))
+
     class Meta:
         verbose_name_plural = _('Entries')
         ordering = ['-pk']

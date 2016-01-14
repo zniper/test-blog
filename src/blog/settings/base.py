@@ -73,6 +73,8 @@ INSTALLED_APPS = (
     'django_admin_bootstrapped',
     'crispy_forms',
     'easy_thumbnails',
+    'haystack',
+    'whoosh',
 
     'accounts',
     'content',
@@ -136,3 +138,11 @@ MESSAGE_TAGS = {
 LOGIN_URL = reverse_lazy("accounts:login")
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

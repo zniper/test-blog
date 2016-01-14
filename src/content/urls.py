@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^entries/$', views.EntryListView.as_view(), name='entry-list'),
     url(r'^entry-(?P<pk>\d+)/$', views.SingleEntryView.as_view(),
         name='view-entry'),
+    url(r'^search/', views.SearchResultView.as_view(), name='blog-search'),
 ]
