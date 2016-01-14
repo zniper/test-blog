@@ -1,7 +1,7 @@
 from django.views import generic
 from django.core.urlresolvers import reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages import success
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages import success, error
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.db.models import ObjectDoesNotExist
@@ -39,6 +39,29 @@ class PostEntryView(LoginRequiredMixin, generic.CreateView):
         success(self.request,
                 _('Congratulations! New entry has been published.'))
         return reverse('content:view_entry', kwargs={'pk': self.object.pk})
+
+
+class EditEntryView(LoginRequiredMixin, UserPassesTestMixin,
+                    generic.UpdateView):
+    """
+    View for editor or admin to edit existing entry.
+    """
+    model = Entry
+    form_class = EntryForm
+
+    def get_success_url(self):
+        success(self.request,
+                _('Congratulations! This has been successfully updated.'))
+        return reverse('content:view_entry', kwargs={'pk': self.object.pk})
+
+    def test_func(self):
+        """Check the permission of current user on editing this entry."""
+        user = self.request.user
+        entry = self.get_object()
+        if user.is_staff or user == entry.editor:
+            return True
+        error(self.request,
+              _('Sorry, you don\'t have permission to edit that entry.'))
 
 
 class SingleEntryView(generic.DetailView):

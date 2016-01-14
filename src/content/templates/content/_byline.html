@@ -9,4 +9,9 @@
     <a href="{% url 'content:entry_list' %}?by=categories&id={{ cat.pk }}">{{ cat.name }}</a>{% if not forloop.last %},&nbsp;{% endif %}
     {% endfor %}
   </span>
+  <span class="actions pull-right">
+    {% if user == entry.editor or user.is_staff %}
+    <a class="" href="{% url 'content:edit_entry' pk=entry.pk %}"><span class="glyphicon glyphicon-pencil"></span>Edit this entry</a>
+    {% endif %}
+  </span>
 </div>

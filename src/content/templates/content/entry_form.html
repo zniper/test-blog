@@ -2,8 +2,10 @@
 
 {% load crispy_forms_tags %}
 
+{% block title %}{{ block.super }}{% if object.pk %}Update Entry{% else %}Post New Entry{% endif %}{% endblock %}
+
 {% block content %}
-  <h1>Create new Entry</h1>
+  <h1>{% if object.pk %}Update Entry{% else %}Post New Entry{% endif %}</h1>
   <hr />
   {% crispy form %}
 {% endblock content %}
